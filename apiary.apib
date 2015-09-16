@@ -1,0 +1,315 @@
+FORMAT: 1A
+HOST: http://polls.apiblueprint.org/
+
+# NWRO
+
+E2EO-NWRO REST API インターフェース
+
+# Group <カタログ>
+
+## カタログ【リソースID指定なし】 [/v1/nwro/catalogues]
+
+### カタログ一括参照 [GET]
+
+すべてのカタログ情報を一括して取得する。
+
++ Response 200 (application/json)
+
+        {
+        "list": [
+        {
+            "id": 1, 
+            "name": "A"
+        }, 
+        {
+            "id": 2, 
+            "name": "B"
+        }
+        ]
+        }
+
+
+### カタログ登録 [POST]
+
+カタログ登録する
+
++ NSD(object) - NSDオブジェクトを渡す。
+
++ Request (application/json)
+
+        {
+        "question": "Favorite programming language?"
+        }
+
++ Response 200 (application/json)
+
+    + Headers
+    
+            Location: /questions/1
+    
+    + Body
+    
+            {
+                "question": "Favorite programming language?",
+                "is": "Ruby"
+            }
+
+## カタログ【リソースID指定あり】 [/vi/nwro/catalogues/{id}]
+
+### カタログ参照 [GET]
++ Response 200 (application/json)
+
+### カタログ変更 [PUT]
++ Response 200 (application/json)
+
+### カタログ削除 [DELETE]
++ Response 200 (application/json)
+
+## カタログ結果通知 [/v1/e2eo/catalogues/{id}]
+
+### カタログ登録・変更・削除結果通知 [PUT]
++ Response 200 (application/json)
+
++ Parameters
+    + id: `NSD-001` ( string) ... リソースID、型は文字列
+
+
+# Group <リソース>
+
+## リソース【リソースID指定なし】 [/v1/nwro/resources]
+
+### リソース一括参照 [GET]
++ Response 200 (application/json)
+
+        {
+        "list": [
+        {
+            "id": 1, 
+            "name": "A"
+        }, 
+        {
+            "id": 2, 
+            "name": "B"
+        }
+        ]
+        }
+
+
+### リソース予約生成・生成 [POST]
+
+リソースを予約または生成する
+
++ 必要パラメータ: NSR
+
++ Request (application/json)
+
+        {
+            "Id": "NSD id",
+            "connection_point": [
+                {
+                    "Id": "CP11",
+                    "type": "virtual port"
+                },
+                {
+                    "Id": "CP21",
+                    "type": "virtual port"
+                }
+            ],
+            "requestHeader": {
+                "apiKey": "#aea57sjas6vsst4jwjol",
+                "functionType": 1,
+                "senderSystemId": "e2eo",
+                "sequenceNo": "12345"
+            },
+            "spec": "冗長化あり",
+            "vendor": "OCN",
+            "version": "1.1",
+            "vld": [
+                {
+                    "connection": [
+                        {
+                            "Id": "CP11"
+                        },
+                        {
+                            "Id": "CP21"
+                        }
+                    ],
+                    "id": "VL1"
+                }
+            ],
+            "vnfd": [
+                {
+                    "Id": "VNF1",
+                    "descripotr_version": "1.0",
+                    "vendor": "OCN"
+                },
+                {
+                    "Id": "VNF2",
+                    "descripotr_version": "1.0",
+                    "vendor": "OCN"
+                }
+            ],
+            "vnffgd": [
+                {
+                    "Id": "VNFFG1",
+                    "connection_point": [
+                        {
+                            "Id": "CP21"
+                        },
+                        {
+                            "Id": "CP22"
+                        }
+                    ],
+                    "vendor": "OCN",
+                    "version": "v1.1"
+                }
+            ]
+        }
+
++ Response 200 (application/json)
+
+
+    + Body
+    
+            {
+                "responseHeader": {
+                "processCode": "000000",
+                "processID": "xx1123456789012",
+                "receivedDate": "2015/09/10 12:34:56",
+                "sequenceNo": "12345"
+                }
+            }
+
+
+## リソース【リソースID指定あり】 [/vi/nwro/resources/{id}]
+
+### リソース照会 [GET]
+
+指定したリソースの情報を参照する。
+
++ Parameters
+    + id: NSR001 (string) - NSRを指定する。
+    ++ Default: NSR99
+    
++ Response 200 (application/json)
+
+        {
+            "connection_point": [
+                {
+                    "Id": "CP11",
+                    "type": "virtual port"
+                },
+                {
+                    "Id": "CP21",
+                    "type": "virtual port"
+                }
+            ],
+            "id": "NSR-001",
+            "requestHeader": {
+                "apiKey": "#aea57sjas6vsst4jwjol",
+                "functionType": 1,
+                "senderSystemId": "e2eo",
+                "sequenceNo": "12345"
+            },
+            "status": "予約",
+            "vendor": "OCN",
+            "version": "1.1",
+            "vlr": [
+                {
+                    "connection": [
+                        {
+                            "id": "CP11"
+                        },
+                        {
+                            "id": "CP21"
+                        }
+                    ],
+                    "id": "VL1"
+                }
+            ],
+            "vnffgr": [
+                {
+                    "connection_point": [
+                        {
+                            "id": "CP21"
+                        },
+                        {
+                            "id": "CP22"
+                        }
+                    ],
+                    "id": "VNFFG1",
+                    "vendor": "OCN",
+                    "version": "v1.1"
+                }
+            ]
+        }
+
+        
+### リソース変更およびリソース変更通知結果 [PUT]
++ Response 200 (application/json)
+
+### リソース削除 [DELETE]
++ Response 200 (application/json)
+
+## リソース結果通知 [/v1/e2eo/resources/{id}]
+
+NWROからE2EOに対してリソースの変更および結果通知を行う。
+リソースの変更通知は警報が対象であり、警報通知先登録が行われていなければ通知されない。
+リソースの結果通知は予約生成、生成、変更、削除の結果通知を行う。
+
+### リソース予約生成、生成の登録・変更・削除結果通知 [PUT]
++ Response 200 (application/json)
+
++ Parameters
+    + id: `NSD-001` ( string) ... リソースID、型は文字列
+
+# Group <警報>
+
+## 警報【リソースID指定なし】 [/v1/nwro/alarms]
+
+### 警報通知先登録 [POST]
+
+警報の通知先を登録する
+
++ question (string) - The question
+
++ Request (application/json)
+
+        {
+        "question": "Favorite programming language?"
+        }
+
++ Response 200 (application/json)
+
+    + Headers
+    
+            Location: /questions/1
+    
+    + Body
+    
+            {
+                "question": "Favorite programming language?",
+                "is": "Ruby"
+            }
+
+## 警報【リソースID指定あり】 [/vi/nwro/alarms/{id}]
+
+### 警報通知先照会 [GET]
++ Response 200 (application/json)
+
+### 警報通知先変更 [PUT]
++ Response 200 (application/json)
+
+### 警報通知先削除 [DELETE]
++ Response 200 (application/json)
+
+## 警報通知 [/v1/e2eo/alarms/{id}]
+
+### 警報通知先登録登録・変更・削除結果通知 [PUT]
++ Response 200 (application/json)
+
++ Parameters
+    + id: `NSD-001` ( string) ... リソースID、型は文字列
+
+
+
