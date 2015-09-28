@@ -57,12 +57,13 @@ E2EO-NWRO REST API インターフェース
 ### リソース予約 [POST]
 
 リソースを予約する。
-cf. "NFVIFA(15)000435r10_IFA013_NS_Lifecycle_Mgmt_Operations.docx"
 
 ここで"serviceAccessPoinsts"のkeyはNSDで定義されたCPを指す。
 valueは基底リソース払い出しで登録されたobjectNaming形式の文字列である。
 ただし、E2EOからVLAN-IDの指定がある場合はvalueの末尾にVLAN-IDが付加される。
 VLAN-IDの指定がなければNWROが(WIMを経由して)適切なVLAN-IDを設定する。
+
+cf. "NFVIFA(15)000435r10_IFA013_NS_Lifecycle_Mgmt_Operations.docx"
 
 + 必要パラメータ: serviceAccessPoints, nsdId, flavourId
 
@@ -101,8 +102,10 @@ VLAN-IDの指定がなければNWROが(WIMを経由して)適切なVLAN-IDを設
 
 ### リソース予約完了通知 [POST]
 
-リソース予約の完了後に完了通知を返却する。
-返却する内容はNSR一式である。
+NSRの初回生成の予約でも、既存NSRに対する変更でもこのI/Fを使用する。
+WIMへのリソース予約の完了後にE2EOに完了通知を返却する。
+
+返却する内容はNSR一式であり、更新箇所だけの情報を返却することはしない。
 
 + 必要パラメータ: nsInfo
 
@@ -110,186 +113,229 @@ VLAN-IDの指定がなければNWROが(WIMを経由して)適切なVLAN-IDを設
 
         {
             "nsInfo": {
-                "audit_log": "",
-                "auto_scale_policy": "",
+                "audit_log": "", 
+                "auto_scale_policy": "", 
                 "connection_point": [
                     {
-                        "id": "NMS=wim-01/EMS=ems/FRE=001",
+                        "id": "NMS=wim-01/EMS=ems/FRE=001", 
                         "type": "vlan100"
-                    },
+                    }, 
                     {
-                        "id": "NMS=wim-01/EMS=ems/FRE=002",
+                        "id": "NMS=wim-01/EMS=ems/FRE=002", 
                         "type": "vlan200"
-                    },
+                    }, 
                     {
-                        "id": "NMS=wim-01/EMS=ems/FRE=003",
+                        "id": "NMS=wim-01/EMS=ems/FRE=003", 
                         "type": "vlan300"
                     }
-                ],
-                "descriptor_reference": "",
-                "id": "nsr-123",
-                "lifecycle_event": "",
-                "lifecycle_event_history": "",
-                "monitoring_parameter": "",
-                "notification": "",
+                ], 
+                "descriptor_reference": "", 
+                "id": "nsr-123", 
+                "lifecycle_event": "", 
+                "lifecycle_event_history": "", 
+                "monitoring_parameter": "", 
+                "notification": "", 
                 "pnfr": [
                     {
-                        "connected_virtual_link": "",
-                        "connection_point": "",
-                        "description": "",
-                        "descriptor_reference": "",
-                        "id": "pnfr-001",
-                        "oam_reference": "",
-                        "parent_ns": "nsr-123",
-                        "pnf_address": "",
-                        "vendor": "",
-                        "version": "",
+                        "connected_virtual_link": "", 
+                        "connection_point": "", 
+                        "description": "", 
+                        "descriptor_reference": "", 
+                        "id": "pnfr-001", 
+                        "oam_reference": "", 
+                        "parent_ns": "nsr-123", 
+                        "pnf_address": "", 
+                        "vendor": "", 
+                        "version": "", 
                         "vnffgr": ""
                     }
-                ],
-                "resource_reservation": "",
-                "runtime_policy_info": "",
-                "service_deployment_flavour": "",
-                "status": "",
-                "vendor": "",
-                "version": "",
+                ], 
+                "resource_reservation": "", 
+                "runtime_policy_info": "", 
+                "service_deployment_flavour": "", 
+                "status": "", 
+                "vendor": "", 
+                "version": "", 
                 "vlr": [
                     {
-                        "allocated_capacity": "",
-                        "audit_log": "",
+                        "allocated_capacity": "", 
+                        "audit_log": "", 
                         "connection": [
                             {
                                 "id": "NMS=wim-01/EMS=ems/FRE=001"
-                            },
+                            }, 
                             {
                                 "id": "NMS=wim-01/EMS=ems/FRE=002"
                             }
-                        ],
-                        "connectivity_type": "",
-                        "descriptor_reference": "",
-                        "id": "vlr-001",
-                        "leaf_requirement": "",
-                        "lifecycle_event_history": "",
-                        "notification": "",
-                        "number_of_enpoints": "",
-                        "parent_ns": "nsr-123",
-                        "qos": "",
-                        "root_requirement": "",
-                        "status": "",
-                        "test_access": "",
-                        "vendor": "",
-                        "version": "",
+                        ], 
+                        "connectivity_type": "", 
+                        "descriptor_reference": "", 
+                        "id": "vlr-001", 
+                        "leaf_requirement": "", 
+                        "lifecycle_event_history": "", 
+                        "notification": "", 
+                        "number_of_enpoints": "", 
+                        "parent_ns": "nsr-123", 
+                        "qos": "", 
+                        "root_requirement": "", 
+                        "status": "", 
+                        "test_access": "", 
+                        "vendor": "", 
+                        "version": "", 
                         "vnffgr_reference": ""
-                    },
+                    }, 
                     {
-                        "allocated_capacity": "",
-                        "audit_log": "",
+                        "allocated_capacity": "", 
+                        "audit_log": "", 
                         "connection": [
                             {
                                 "id": "NMS=wim-01/EMS=ems/FRE=002"
-                            },
+                            }, 
                             {
                                 "id": "NMS=wim-01/EMS=ems/FRE=003"
                             }
-                        ],
-                        "connectivity_type": "",
-                        "descriptor_reference": "",
-                        "id": "vlr-002",
-                        "leaf_requirement": "",
-                        "lifecycle_event_history": "",
-                        "notification": "",
-                        "number_of_enpoints": "",
-                        "parent_ns": "nsr-123",
-                        "qos": "",
-                        "root_requirement": "",
-                        "status": "",
-                        "test_access": "",
-                        "vendor": "",
-                        "version": "",
+                        ], 
+                        "connectivity_type": "", 
+                        "descriptor_reference": "", 
+                        "id": "vlr-002", 
+                        "leaf_requirement": "", 
+                        "lifecycle_event_history": "", 
+                        "notification": "", 
+                        "number_of_enpoints": "", 
+                        "parent_ns": "nsr-123", 
+                        "qos": "", 
+                        "root_requirement": "", 
+                        "status": "", 
+                        "test_access": "", 
+                        "vendor": "", 
+                        "version": "", 
                         "vnffgr_reference": ""
                     }
-                ],
-                "vnf_dependency": "",
+                ], 
+                "vnf_dependency": "", 
                 "vnffgr": [
                     {
-                        "audit_log": "",
+                        "audit_log": "", 
                         "connection_point": [
                             {
                                 "id": "NMS=wim-01/EMS=ems/FRE=001"
-                            },
+                            }, 
                             {
                                 "id": "NMS=wim-01/EMS=ems/FRE=002"
-                            },
+                            }, 
                             {
                                 "id": "NMS=wim-01/EMS=ems/FRE=003"
                             }
-                        ],
-                        "dependent_virtual_link": "",
-                        "descriptor_reference": "",
-                        "id": "vnffgr-001",
-                        "lifecycle_event_history": "",
-                        "member_vnfs": "",
-                        "network_forwarding_path": "",
-                        "notification": "",
-                        "number_of_endpoints": "",
-                        "number_of_pnfs": "",
-                        "number_of_virtual_links": "",
-                        "number_of_vnfs": "",
-                        "parent_ns": "nsr-123",
-                        "status": "",
-                        "vendor": "",
+                        ], 
+                        "dependent_virtual_link": "", 
+                        "descriptor_reference": "", 
+                        "id": "vnffgr-001", 
+                        "lifecycle_event_history": "", 
+                        "member_vnfs": "", 
+                        "network_forwarding_path": "", 
+                        "notification": "", 
+                        "number_of_endpoints": "", 
+                        "number_of_pnfs": "", 
+                        "number_of_virtual_links": "", 
+                        "number_of_vnfs": "", 
+                        "parent_ns": "nsr-123", 
+                        "status": "", 
+                        "vendor": "", 
                         "version": ""
                     }
-                ],
+                ], 
                 "vnfr": [
                     {
-                        "audit_log": "",
-                        "auto_scale_policy": "",
-                        "connected_external_virtual_link": "",
-                        "connection_point": "",
-                        "dependency": "",
-                        "deployment_flavour": "",
-                        "descriptor_reference": "",
-                        "id": "vnfr-001",
-                        "lifecycle_event": "",
-                        "lifecycle_event_history": "",
-                        "localization": "",
-                        "monitoring_parameter": "",
-                        "notification": "",
-                        "parent_ns": "nsr-123",
-                        "runtime_policy_info": "",
-                        "status": "",
-                        "vdu": "",
-                        "vendor": "",
-                        "version": "",
-                        "virtual_link": "",
-                        "vnf_address": "",
+                        "audit_log": "", 
+                        "auto_scale_policy": "", 
+                        "connected_external_virtual_link": "", 
+                        "connection_point": "", 
+                        "dependency": "", 
+                        "deployment_flavour": "", 
+                        "descriptor_reference": "", 
+                        "id": "vnfr-001", 
+                        "lifecycle_event": "", 
+                        "lifecycle_event_history": "", 
+                        "localization": "", 
+                        "monitoring_parameter": "", 
+                        "notification": "", 
+                        "parent_ns": "nsr-123", 
+                        "runtime_policy_info": "", 
+                        "status": "", 
+                        "vdu": "", 
+                        "vendor": "", 
+                        "version": "", 
+                        "virtual_link": "", 
+                        "vnf_address": "", 
                         "vnfm_id": ""
                     }
                 ]
-            },
+            }, 
             "requestHeader": {
-                "apiKey": "#aea57sjas6vsst4jwjol",
-                "functionType": 20,
-                "senderSystemId": "nwro1",
+                "apiKey": "#aea57sjas6vsst4jwjol", 
+                "functionType": 20, 
+                "senderSystemId": "nwro1", 
                 "sequenceNo": "54321"
-            },
-            "resourceUri": "/v1/nwro-e2eo/resources/nsr-123",
-            "result": "000000",
+            }, 
+            "reservationUri": "/v1/nwro-e2eo/reservation/nsrs-456", 
+            "resourceUri": "/v1/nwro-e2eo/resources/nsr-123", 
+            "result": "000000", 
             "sequenceNo": "12345"
         }
 
 + Response 200 (application/json)
 
+    + Body
+    
+            {
+                "responseHeader": {
+                "processCode": "000000",
+                "processID": "xx1123456789012",
+                "receivedDate": "2015/09/10 12:34:56",
+                "sequenceNo": "12345"
+                }
+            }
+
+## リソース設定 [/vi/nwro-e2eo/reservation/{id}]
+予約したリソースの設定を実行する。
+生成もしくは変更のどちらでもこのI/Fを使用する。
+cf. "NFVIFA(15)000435r10_IFA013_NS_Lifecycle_Mgmt_Operations.docx"の”NS LCM　IF(案)”シート
+
+### リソース設定 [PUT]
+
++ 必要パラメータ: reserveId, nsName
+
++ Request (application/json)
+
         {
-            "location": "/v1/e2eo-nwro/notifications/hoge-id", 
-            "responseHeader": {
-                "processCode": "000000", 
-                "processID": "xx1123456789012", 
-                "receivedDate": "2015/09/10 12:34:56", 
-                "sequenceNo": "54321"
+            "asyncNotificationLocation": "/v1/e2eo-nwro/notifications", 
+            "flavourId": "flvour-789", 
+            "nsdId": "ns-001_v1.0", 
+            "requestHeader": {
+                "apiKey": "#aea57sjas6vsst4jwjol", 
+                "functionType": 10, 
+                "senderSystemId": "e2eo", 
+                "sequenceNo": "12345"
+            }, 
+            "serviceAccessPoints": {
+                "cp-03": "NMS=wim-01/EMS=ems/ME-ID=クラスタ番号+leafSW番号/rack=1/shelf=1/slot=1/subslot=1", 
+                "cp-10": "NMS=wim-01/EMS=ems/ME-ID=クラスタ番号+leafSW番号/rack=1/shelf=1/slot=2/subslot=1"
             }
         }
+
++ Response 202 (application/json)
+
+    + Body
+    
+            {
+                "responseHeader": {
+                "processCode": "000000",
+                "processID": "xx1123456789012",
+                "receivedDate": "2015/09/10 12:34:56",
+                "sequenceNo": "12345"
+                }
+            }
+
 
 # Group <リソース>
 
