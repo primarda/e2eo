@@ -53,12 +53,17 @@ E2EO-NWRO REST API インターフェース
 
 # Group <リソース>
 
-## リソース【リソースID指定なし】 [/v1/nwro/resources]
+## リソース【リソースID指定なし】 [/v1/nwro-e2eo/resources]
 
 ### リソース予約 [POST]
 
 リソースを予約する。
 cf. "NFVIFA(15)000435r10_IFA013_NS_Lifecycle_Mgmt_Operations.docx"
+
+ここで"serviceAccessPoinsts"のkeyはNSDで定義されたCPを指す。
+valueは基底リソース払い出しで登録されたobjectNaming形式の文字列である。
+ただし、E2EOからVLAN-IDの指定がある場合はvalueの末尾にVLAN-IDが付加される。
+VLAN-IDの指定がなければNWROが(WIMを経由して)適切に設定する。
 
 + 必要パラメータ: serviceAccessPoints, nsdId, flavourId
 
@@ -82,7 +87,6 @@ cf. "NFVIFA(15)000435r10_IFA013_NS_Lifecycle_Mgmt_Operations.docx"
 
 + Response 202 (application/json)
 
-
     + Body
     
             {
@@ -97,68 +101,6 @@ cf. "NFVIFA(15)000435r10_IFA013_NS_Lifecycle_Mgmt_Operations.docx"
 
 ## リソース【リソースID指定あり】 [/vi/nwro/resources/{id}]
 
-### リソース照会 [GET]
-
-指定したリソースの情報を参照する。
-
-+ Parameters
-    + id: NSR001 (string) - NSRを指定する。
-    ++ Default: NSR99
-    
-+ Response 200 (application/json)
-
-        {
-            "connection_point": [
-                {
-                    "Id": "CP11",
-                    "type": "virtual port"
-                },
-                {
-                    "Id": "CP21",
-                    "type": "virtual port"
-                }
-            ],
-            "id": "NSR-001",
-            "requestHeader": {
-                "apiKey": "#aea57sjas6vsst4jwjol",
-                "functionType": 1,
-                "senderSystemId": "e2eo",
-                "sequenceNo": "12345"
-            },
-            "status": "予約",
-            "vendor": "OCN",
-            "version": "1.1",
-            "vlr": [
-                {
-                    "connection": [
-                        {
-                            "id": "CP11"
-                        },
-                        {
-                            "id": "CP21"
-                        }
-                    ],
-                    "id": "VL1"
-                }
-            ],
-            "vnffgr": [
-                {
-                    "connection_point": [
-                        {
-                            "id": "CP21"
-                        },
-                        {
-                            "id": "CP22"
-                        }
-                    ],
-                    "id": "VNFFG1",
-                    "vendor": "OCN",
-                    "version": "v1.1"
-                }
-            ]
-        }
-
-        
 ### リソース変更およびリソース変更通知結果 [PUT]
 + Response 200 (application/json)
 
