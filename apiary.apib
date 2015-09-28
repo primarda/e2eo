@@ -9,26 +9,6 @@ E2EO-NWRO REST API インターフェース
 
 ## カタログ【リソースID指定なし】 [/v1/nwro/catalogues]
 
-### カタログ一括参照 [GET]
-
-すべてのカタログ情報を一括して取得する。
-
-+ Response 200 (application/json)
-
-        {
-        "list": [
-        {
-            "id": 1, 
-            "name": "A"
-        }, 
-        {
-            "id": 2, 
-            "name": "B"
-        }
-        ]
-        }
-
-
 ### カタログ登録 [POST]
 
 カタログ登録する
@@ -56,9 +36,6 @@ E2EO-NWRO REST API インターフェース
 
 ## カタログ【リソースID指定あり】 [/vi/nwro/catalogues/{id}]
 
-### カタログ参照 [GET]
-+ Response 200 (application/json)
-
 ### カタログ変更 [PUT]
 + Response 200 (application/json)
 
@@ -81,7 +58,7 @@ E2EO-NWRO REST API インターフェース
 ### リソース予約 [POST]
 
 リソースを予約する。
-cf. NFVIFA(15)000435r10_IFA013_NS_Lifecycle_Mgmt_Operations.docx
+cf. "NFVIFA(15)000435r10_IFA013_NS_Lifecycle_Mgmt_Operations.docx"
 
 + 必要パラメータ: NSR
 
