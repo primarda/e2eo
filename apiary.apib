@@ -18,21 +18,63 @@ E2EO-NWRO REST API インターフェース
 + Request (application/json)
 
         {
-        "question": "Favorite programming language?"
+            "Id": "scenario_no4",
+            "asyncNotificationLocation": "/v1/e2eo-nwro/notifications",
+            "connection_point": [
+                {
+                    "id": "no4_CP3",
+                    "type": "MSFドメイン＋POI(仮)"
+                },
+                {
+                    "id": "no4_CP10",
+                    "type": "MSFドメイン＋アクセス終端(仮)"
+                }
+            ],
+            "requestHeader": {
+                "apiKey": "#aea57sjas6vsst4jwjol",
+                "functionType": 10,
+                "senderSystemId": "e2eo",
+                "sequenceNo": "12345"
+            },
+            "service_deployment_flavour": [
+                {
+                    "constituent_vnf": [
+                        {
+                            "number_of_instances": 0,
+                            "vnf_flavour_id_reference": "http://xxxxxxxxx/catalogManagement/catalog/vnfd/dummy/1.0/flavors/dummy_id(仮)",
+                            "vnf_reference": "http://xxxxxxxxx/catalogManagement/catalog/vnfd/dummy/1.0(仮)"
+                        }
+                    ],
+                    "flavour_key": "dummy",
+                    "id": "no4_normal_flavour",
+                    "vl_flavour_id_reference": [
+                        "http://xxxxxxxxx/catalogManagement/catalog/vld/no4_common_l2/1.0/flavors/f_common_100M(仮)"
+                    ]
+                }
+            ],
+            "vendor": "NTT",
+            "version": "1.0",
+            "vld": [
+                "http://xxxxxxxxx/catalogManagement/catalog/vld/no4_common_l2/1.0(仮)"
+            ],
+            "vnfd": [
+                "http://xxxxxxxxx/catalogManagement/catalog/vnfd/dummy/1.0(仮)"
+            ],
+            "vnffgd": [
+                "http://xxxxxxxxx/catalogManagement/catalog/vnffgd/vnffgd_no4/1.0(仮)"
+            ]
         }
 
-+ Response 200 (application/json)
++ Response 202 (application/json)
 
-    + Headers
-    
-            Location: /questions/1
-    
-    + Body
-    
-            {
-                "question": "Favorite programming language?",
-                "is": "Ruby"
+        {
+            "responseHeader": {
+                "processCode": "000000",
+                "processID": "xx1123456789012",
+                "receivedDate": "2015/09/10 12:34:56",
+                "sequenceNo": "12345"
             }
+        }
 
 ## カタログ【リソースID指定あり】 [/vi/nwro/catalogues/{id}]
 
@@ -396,7 +438,7 @@ cf. "NFVIFA(15)000435r10_IFA013_NS_Lifecycle_Mgmt_Operations.docx"の”NS LCM�
 
 ### 完了通知 [POST]
 
-リソースの予約、設定における完了を通知する。
+カタログ登録・変更、リソース予約・予約変更、リソース設定における完了を通知する。
 
 + 必要パラメータ: serviceAccessPoints, nsdId, flavourId
 
