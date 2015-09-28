@@ -296,12 +296,13 @@ WIMへのリソース予約の完了後にE2EOに完了通知を返却する。
                 }
             }
 
-## リソース設定 [/vi/nwro-e2eo/reservation/{id}]
-予約したリソースの設定を実行する。
-生成もしくは変更のどちらでもこのI/Fを使用する。
-cf. "NFVIFA(15)000435r10_IFA013_NS_Lifecycle_Mgmt_Operations.docx"の”NS LCM　IF(案)”シート
+## リソース設定 [/vi/nwro-e2eo/resources/{id}]
 
 ### リソース設定 [PUT]
+
+予約したリソースの設定を実行する。
+生成予約もしくは変更予約のどちらでもこのI/Fを使用する。
+cf. "NFVIFA(15)000435r10_IFA013_NS_Lifecycle_Mgmt_Operations.docx"の”NS LCM　IF(案)”シート
 
 + 必要パラメータ: reserveId, nsName
 
@@ -309,18 +310,15 @@ cf. "NFVIFA(15)000435r10_IFA013_NS_Lifecycle_Mgmt_Operations.docx"の”NS LCM�
 
         {
             "asyncNotificationLocation": "/v1/e2eo-nwro/notifications", 
-            "flavourId": "flvour-789", 
-            "nsdId": "ns-001_v1.0", 
+            "nsName": "NSR-001", 
             "requestHeader": {
                 "apiKey": "#aea57sjas6vsst4jwjol", 
                 "functionType": 10, 
                 "senderSystemId": "e2eo", 
-                "sequenceNo": "12345"
+                "sequenceNo": "12346"
             }, 
-            "serviceAccessPoints": {
-                "cp-03": "NMS=wim-01/EMS=ems/ME-ID=クラスタ番号+leafSW番号/rack=1/shelf=1/slot=1/subslot=1", 
-                "cp-10": "NMS=wim-01/EMS=ems/ME-ID=クラスタ番号+leafSW番号/rack=1/shelf=1/slot=2/subslot=1"
-            }
+            "reserveId": "NSRS-456", 
+            "schedule": ""
         }
 
 + Response 202 (application/json)
