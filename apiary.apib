@@ -50,10 +50,10 @@ E2EO-NWRO REST API インターフェース
 + Parameters
     + id: `NSD-001` ( string) ... リソースID、型は文字列
 
+# Group <予約>
 
-# Group <リソース>
+## 予約 [/v1/nwro-e2eo/reservation]
 
-## リソース【リソースID指定なし】 [/v1/nwro-e2eo/resources]
 
 ### リソース予約 [POST]
 
@@ -63,7 +63,7 @@ cf. "NFVIFA(15)000435r10_IFA013_NS_Lifecycle_Mgmt_Operations.docx"
 ここで"serviceAccessPoinsts"のkeyはNSDで定義されたCPを指す。
 valueは基底リソース払い出しで登録されたobjectNaming形式の文字列である。
 ただし、E2EOからVLAN-IDの指定がある場合はvalueの末尾にVLAN-IDが付加される。
-VLAN-IDの指定がなければNWROが(WIMを経由して)適切に設定する。
+VLAN-IDの指定がなければNWROが(WIMを経由して)適切なVLAN-IDを設定する。
 
 + 必要パラメータ: serviceAccessPoints, nsdId, flavourId
 
@@ -98,6 +98,8 @@ VLAN-IDの指定がなければNWROが(WIMを経由して)適切に設定する�
                 }
             }
 
+
+# Group <リソース>
 
 ## リソース【リソースID指定あり】 [/vi/nwro/resources/{id}]
 
