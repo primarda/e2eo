@@ -7,13 +7,12 @@ E2EO-NWRO REST API インターフェース
 
 # Group <カタログ>
 
-## カタログ【リソースID指定なし】 [/v1/nwro/catalogues]
+## カタログ登録 [/v1/nwro-e2eo/catalogues]
 
 ### カタログ登録 [POST]
 
-カタログ登録する
-
-+ NSD(object) - NSDオブジェクトを渡す。
+カタログの初回登録を行う。
+body中にHTTPのURLが記載されているが、カタログ登録時もしくはリソース予約時にURLを参照して値を取得する。
 
 + Request (application/json)
 
@@ -76,17 +75,19 @@ E2EO-NWRO REST API インターフェース
             }
         }
 
-## カタログ【リソースID指定あり】 [/vi/nwro/catalogues/{id}]
+## カタログ変更・削除 [/v1/nwro-e2eo/catalogues/{id}]
 
 ### カタログ変更 [PUT]
+
+カタログ変更は未実装
+
 + Response 200 (application/json)
+
++ Parameters
+    + id: `NSD-001` ( string) ... リソースID、型は文字列
 
 ### カタログ削除 [DELETE]
-+ Response 200 (application/json)
 
-## カタログ結果通知 [/v1/e2eo/catalogues/{id}]
-
-### カタログ登録・変更・削除結果通知 [PUT]
 + Response 200 (application/json)
 
 + Parameters
@@ -379,6 +380,24 @@ cf. "NFVIFA(15)000435r10_IFA013_NS_Lifecycle_Mgmt_Operations.docx"の”NS LCM�
                 "sequenceNo": "12345"
                 }
             }
+
+## リソース変更・削除 [/v1/nwro-e2eo/resources/{id}]
+
+### リソース変更 [PUT]
+
+リソース変更は未実装
+
++ Response 200 (application/json)
+
++ Parameters
+    + id: `NSR-001` ( string) ... リソースID、型は文字列
+
+### rソース削除 [DELETE]
+
++ Response 200 (application/json)
+
++ Parameters
+    + id: `NSR-001` ( string) ... リソースID、型は文字列
 
 
 
