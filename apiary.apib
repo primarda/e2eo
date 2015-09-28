@@ -60,7 +60,7 @@ E2EO-NWRO REST API インターフェース
 リソースを予約する。
 cf. "NFVIFA(15)000435r10_IFA013_NS_Lifecycle_Mgmt_Operations.docx"
 
-+ 必要パラメータ: NSR
++ 必要パラメータ: serviceAccessPoints, nsdId, flavourId
 
 + Request (application/json)
 
@@ -80,7 +80,7 @@ cf. "NFVIFA(15)000435r10_IFA013_NS_Lifecycle_Mgmt_Operations.docx"
             }
         }
 
-+ Response 200 (application/json)
++ Response 202 (application/json)
 
 
     + Body
