@@ -97,6 +97,200 @@ VLAN-IDの指定がなければNWROが(WIMを経由して)適切なVLAN-IDを設
                 }
             }
 
+## リソース予約完了通知 [/vi/e2eo-nwro/notifications]
+
+### リソース予約完了通知 [POST]
+
+リソース予約の完了後に完了通知を返却する。
+返却する内容はNSR一式である。
+
++ 必要パラメータ: nsInfo
+
++ Request (application/json)
+
+        {
+            "nsInfo": {
+                "audit_log": "",
+                "auto_scale_policy": "",
+                "connection_point": [
+                    {
+                        "id": "NMS=wim-01/EMS=ems/FRE=001",
+                        "type": "vlan100"
+                    },
+                    {
+                        "id": "NMS=wim-01/EMS=ems/FRE=002",
+                        "type": "vlan200"
+                    },
+                    {
+                        "id": "NMS=wim-01/EMS=ems/FRE=003",
+                        "type": "vlan300"
+                    }
+                ],
+                "descriptor_reference": "",
+                "id": "nsr-123",
+                "lifecycle_event": "",
+                "lifecycle_event_history": "",
+                "monitoring_parameter": "",
+                "notification": "",
+                "pnfr": [
+                    {
+                        "connected_virtual_link": "",
+                        "connection_point": "",
+                        "description": "",
+                        "descriptor_reference": "",
+                        "id": "pnfr-001",
+                        "oam_reference": "",
+                        "parent_ns": "nsr-123",
+                        "pnf_address": "",
+                        "vendor": "",
+                        "version": "",
+                        "vnffgr": ""
+                    }
+                ],
+                "resource_reservation": "",
+                "runtime_policy_info": "",
+                "service_deployment_flavour": "",
+                "status": "",
+                "vendor": "",
+                "version": "",
+                "vlr": [
+                    {
+                        "allocated_capacity": "",
+                        "audit_log": "",
+                        "connection": [
+                            {
+                                "id": "NMS=wim-01/EMS=ems/FRE=001"
+                            },
+                            {
+                                "id": "NMS=wim-01/EMS=ems/FRE=002"
+                            }
+                        ],
+                        "connectivity_type": "",
+                        "descriptor_reference": "",
+                        "id": "vlr-001",
+                        "leaf_requirement": "",
+                        "lifecycle_event_history": "",
+                        "notification": "",
+                        "number_of_enpoints": "",
+                        "parent_ns": "nsr-123",
+                        "qos": "",
+                        "root_requirement": "",
+                        "status": "",
+                        "test_access": "",
+                        "vendor": "",
+                        "version": "",
+                        "vnffgr_reference": ""
+                    },
+                    {
+                        "allocated_capacity": "",
+                        "audit_log": "",
+                        "connection": [
+                            {
+                                "id": "NMS=wim-01/EMS=ems/FRE=002"
+                            },
+                            {
+                                "id": "NMS=wim-01/EMS=ems/FRE=003"
+                            }
+                        ],
+                        "connectivity_type": "",
+                        "descriptor_reference": "",
+                        "id": "vlr-002",
+                        "leaf_requirement": "",
+                        "lifecycle_event_history": "",
+                        "notification": "",
+                        "number_of_enpoints": "",
+                        "parent_ns": "nsr-123",
+                        "qos": "",
+                        "root_requirement": "",
+                        "status": "",
+                        "test_access": "",
+                        "vendor": "",
+                        "version": "",
+                        "vnffgr_reference": ""
+                    }
+                ],
+                "vnf_dependency": "",
+                "vnffgr": [
+                    {
+                        "audit_log": "",
+                        "connection_point": [
+                            {
+                                "id": "NMS=wim-01/EMS=ems/FRE=001"
+                            },
+                            {
+                                "id": "NMS=wim-01/EMS=ems/FRE=002"
+                            },
+                            {
+                                "id": "NMS=wim-01/EMS=ems/FRE=003"
+                            }
+                        ],
+                        "dependent_virtual_link": "",
+                        "descriptor_reference": "",
+                        "id": "vnffgr-001",
+                        "lifecycle_event_history": "",
+                        "member_vnfs": "",
+                        "network_forwarding_path": "",
+                        "notification": "",
+                        "number_of_endpoints": "",
+                        "number_of_pnfs": "",
+                        "number_of_virtual_links": "",
+                        "number_of_vnfs": "",
+                        "parent_ns": "nsr-123",
+                        "status": "",
+                        "vendor": "",
+                        "version": ""
+                    }
+                ],
+                "vnfr": [
+                    {
+                        "audit_log": "",
+                        "auto_scale_policy": "",
+                        "connected_external_virtual_link": "",
+                        "connection_point": "",
+                        "dependency": "",
+                        "deployment_flavour": "",
+                        "descriptor_reference": "",
+                        "id": "vnfr-001",
+                        "lifecycle_event": "",
+                        "lifecycle_event_history": "",
+                        "localization": "",
+                        "monitoring_parameter": "",
+                        "notification": "",
+                        "parent_ns": "nsr-123",
+                        "runtime_policy_info": "",
+                        "status": "",
+                        "vdu": "",
+                        "vendor": "",
+                        "version": "",
+                        "virtual_link": "",
+                        "vnf_address": "",
+                        "vnfm_id": ""
+                    }
+                ]
+            },
+            "requestHeader": {
+                "apiKey": "#aea57sjas6vsst4jwjol",
+                "functionType": 20,
+                "senderSystemId": "nwro1",
+                "sequenceNo": "54321"
+            },
+            "resourceUri": "/v1/nwro-e2eo/resources/nsr-123",
+            "result": "000000",
+            "sequenceNo": "12345"
+        }
+
++ Response 200 (application/json)
+
+    + Body
+    
+            {
+                "responseHeader": {
+                "processCode": "000000",
+                "processID": "xx1123456789012",
+                "receivedDate": "2015/09/10 12:34:56",
+                "sequenceNo": "12345"
+                }
+            }
 
 # Group <リソース>
 
