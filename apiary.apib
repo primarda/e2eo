@@ -78,92 +78,29 @@ E2EO-NWRO REST API インターフェース
 
 ## リソース【リソースID指定なし】 [/v1/nwro/resources]
 
-### リソース一括参照 [GET]
-+ Response 200 (application/json)
+### リソース予約 [POST]
 
-        {
-        "list": [
-        {
-            "id": 1, 
-            "name": "A"
-        }, 
-        {
-            "id": 2, 
-            "name": "B"
-        }
-        ]
-        }
-
-
-### リソース予約生成・生成 [POST]
-
-リソースを予約または生成する
+リソースを予約する。
+cf. NFVIFA(15)000435r10_IFA013_NS_Lifecycle_Mgmt_Operations.docx
 
 + 必要パラメータ: NSR
 
 + Request (application/json)
 
         {
-            "Id": "NSD id",
-            "connection_point": [
-                {
-                    "Id": "CP11",
-                    "type": "virtual port"
-                },
-                {
-                    "Id": "CP21",
-                    "type": "virtual port"
-                }
-            ],
+            "asyncNotificationLocation": "/v1/e2eo-nwro/notifications", 
+            "flavourId": "flvour-789", 
+            "nsdId": "ns-001_v1.0", 
             "requestHeader": {
-                "apiKey": "#aea57sjas6vsst4jwjol",
-                "functionType": 1,
-                "senderSystemId": "e2eo",
+                "apiKey": "#aea57sjas6vsst4jwjol", 
+                "functionType": 10, 
+                "senderSystemId": "e2eo", 
                 "sequenceNo": "12345"
-            },
-            "spec": "冗長化あり",
-            "vendor": "OCN",
-            "version": "1.1",
-            "vld": [
-                {
-                    "connection": [
-                        {
-                            "Id": "CP11"
-                        },
-                        {
-                            "Id": "CP21"
-                        }
-                    ],
-                    "id": "VL1"
-                }
-            ],
-            "vnfd": [
-                {
-                    "Id": "VNF1",
-                    "descripotr_version": "1.0",
-                    "vendor": "OCN"
-                },
-                {
-                    "Id": "VNF2",
-                    "descripotr_version": "1.0",
-                    "vendor": "OCN"
-                }
-            ],
-            "vnffgd": [
-                {
-                    "Id": "VNFFG1",
-                    "connection_point": [
-                        {
-                            "Id": "CP21"
-                        },
-                        {
-                            "Id": "CP22"
-                        }
-                    ],
-                    "vendor": "OCN",
-                    "version": "v1.1"
-                }
-            ]
+            }, 
+            "serviceAccessPoints": {
+                "cp-03": "NMS=wim-01/EMS=ems/ME-ID=クラスタ番号+leafSW番号/rack=1/shelf=1/slot=1/subslot=1", 
+                "cp-10": "NMS=wim-01/EMS=ems/ME-ID=クラスタ番号+leafSW番号/rack=1/shelf=1/slot=2/subslot=1"
+            }
         }
 
 + Response 200 (application/json)
