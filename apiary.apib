@@ -296,6 +296,10 @@ WIMへのリソース予約の完了後にE2EOに完了通知を返却する。
                 }
             }
 
+
+
+# Group <リソース>
+
 ## リソース設定 [/vi/nwro-e2eo/resources/{id}]
 
 ### リソース設定 [PUT]
@@ -335,27 +339,6 @@ cf. "NFVIFA(15)000435r10_IFA013_NS_Lifecycle_Mgmt_Operations.docx"の”NS LCM�
             }
 
 
-# Group <リソース>
-
-## リソース【リソースID指定あり】 [/vi/nwro/resources/{id}]
-
-### リソース変更およびリソース変更通知結果 [PUT]
-+ Response 200 (application/json)
-
-### リソース削除 [DELETE]
-+ Response 200 (application/json)
-
-## リソース結果通知 [/v1/e2eo/resources/{id}]
-
-NWROからE2EOに対してリソースの変更および結果通知を行う。
-リソースの変更通知は警報が対象であり、警報通知先登録が行われていなければ通知されない。
-リソースの結果通知は予約生成、生成、変更、削除の結果通知を行う。
-
-### リソース予約生成、生成の登録・変更・削除結果通知 [PUT]
-+ Response 200 (application/json)
-
-+ Parameters
-    + id: `NSD-001` ( string) ... リソースID、型は文字列
 
 # Group <警報>
 
@@ -406,4 +389,45 @@ NWROからE2EOに対してリソースの変更および結果通知を行う。
     + id: `NSD-001` ( string) ... リソースID、型は文字列
 
 
+
+# Group <完了通知>
+
+## 完了通知 [/v1/nwro-e2eo/notifications]
+
+### 完了通知 [POST]
+
+リソースの予約、設定における完了を通知する。
+
++ 必要パラメータ: serviceAccessPoints, nsdId, flavourId
+
++ Request (application/json)
+
+        {
+            "asyncNotificationLocation": "/v1/e2eo-nwro/notifications", 
+            "flavourId": "flvour-789", 
+            "nsdId": "ns-001_v1.0", 
+            "requestHeader": {
+                "apiKey": "#aea57sjas6vsst4jwjol", 
+                "functionType": 10, 
+                "senderSystemId": "e2eo", 
+                "sequenceNo": "12345"
+            }, 
+            "serviceAccessPoints": {
+                "cp-03": "NMS=wim-01/EMS=ems/ME-ID=クラスタ番号+leafSW番号/rack=1/shelf=1/slot=1/subslot=1", 
+                "cp-10": "NMS=wim-01/EMS=ems/ME-ID=クラスタ番号+leafSW番号/rack=1/shelf=1/slot=2/subslot=1"
+            }
+        }
+
++ Response 202 (application/json)
+
+    + Body
+    
+            {
+                "responseHeader": {
+                "processCode": "000000",
+                "processID": "xx1123456789012",
+                "receivedDate": "2015/09/10 12:34:56",
+                "sequenceNo": "12345"
+                }
+            }
 
